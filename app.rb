@@ -73,9 +73,8 @@ end
 get '/import_from_marmitton' do
   file = open(params[:url]).read
   doc = Nokogiri::HTML(file)
-  description = ""
   name = doc.search(".main-title").text
-  description = doc.css(".recipe-preparation__list__item").each { |step| description += step.text.gsub("\t", "").gsub("\n", "").gsub("\r", "") + "\n" }
+  description = doc.css(".recipe-preparation__list__item").text.gsub("\t", "").gsub("\r", "")
   time = doc.search(".recipe-infos__timmings__total-time span").text
   difficulty = doc.search(".recipe-infos__level span").text
   create(name, description, time, difficulty)
