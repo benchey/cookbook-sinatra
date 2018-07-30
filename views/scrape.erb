@@ -1,0 +1,15 @@
+<h1> Scraping </h1>
+<form action="/scrape" method="post">
+  Keyword <input type="text" name="keyword">
+  <input type="submit" value="Ok">
+</form>
+<br>
+<% unless @search_results.nil?  %>
+  <% @search_results.each_with_index do |recipe, index| %>
+    <li>
+      <a href="/import_from_marmitton?url=<%= recipe[1]%>">
+      <%= "#{index + 1}. #{recipe[0]}" %>
+      </a>
+    </li>
+  <% end %>
+<% end %>
